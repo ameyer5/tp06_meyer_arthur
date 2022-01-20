@@ -1,0 +1,7 @@
+<div style="text-align: center; color: darkslateblue; font-family: Papyrus"><p>List of items in the cart</p></div>
+
+<div style="text-align: center;" *ngFor="let product of productList$ | async">
+  {{ product.reference }} - {{ product.name }} - {{ product.price }}
+  <button (click)="removeProductFromCart(product)">Remove from cart</button>
+  <hr>
+</div>

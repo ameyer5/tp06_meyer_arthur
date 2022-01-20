@@ -1,0 +1,12 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  flex-direction: column;
+}
+
+.submit-button {
+  margin-top: 0.5rem;
+}

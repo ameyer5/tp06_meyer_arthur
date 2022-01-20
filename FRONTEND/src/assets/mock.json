@@ -1,0 +1,7 @@
+[
+  { "reference": "0001", "name": "article1", "price": 10 },
+  { "reference": "0002", "name": "article10", "price": 20 },
+  { "reference": "0003", "name": "article11", "price": 30 },
+  { "reference": "0004", "name": "article100", "price": 40 },
+  { "reference": "0005", "name": "article101", "price": 50 }
+]

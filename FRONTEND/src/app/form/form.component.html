@@ -1,0 +1,198 @@
+<div class="container-fluid flex">
+  <form [formGroup]="connectionForm" (ngSubmit)="onConnect()">
+    <div class="col">
+      <label class="form-label" for="name">Se connecter</label>
+      <div class="form-outline">
+        <input type="text" id="login" class="form-control" formControlName="login" required>
+        <label class="form-label" for="name">Login</label>
+      </div>
+      <div class="form-outline">
+        <input type="userPass" id="userPass" class="form-control" formControlName="password" required>
+        <label class="form-label" for="password">Mot de passe</label>
+      </div>
+
+      <p>API returned: {{ this.loginReturned | async }}</p>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block mb-4 submit-button">>Se connecter</button>
+    </div>
+  </form>
+  
+  <form [hidden]="hideForm" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <input type="text" id="name" class="form-control" formControlName="lastName" required>
+          <label class="form-label" for="name">Nom</label>
+          <div *ngIf="clientForm.controls['lastName'].invalid && (clientForm.controls['lastName'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['lastName'].errors?.required">
+              Vous devez remplir votre nom.
+            </div>
+            <div *ngIf="clientForm.controls['lastName'].errors?.minlength">
+              Le nom doit faire 3 caractères minimum.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <input type="text" id="surname" class="form-control" formControlName="firstName" required>
+          <label class="form-label" for="surname">Prénom</label>
+          <div *ngIf="clientForm.controls['firstName'].invalid && (clientForm.controls['firstName'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['firstName'].errors?.required">
+              Vous devez remplir votre prénom.
+            </div>
+            <div *ngIf="clientForm.controls['firstName'].errors?.minlength">
+              Le nom doit faire 3 caractères minimum.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <input type="text" id="address" class="form-control" formControlName="address" required>
+          <label class="form-label" for="address">Adresse</label>
+          <div *ngIf="clientForm.controls['address'].invalid && (clientForm.controls['address'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['address'].errors?.required">
+              Vous devez rentrer une adresse valide.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <input type="text" id="postalcode" class="form-control" formControlName="postalCode" required>
+          <label class="form-label" for="postalcode">Code postal</label>
+          <div *ngIf="clientForm.controls['postalCode'].invalid && (clientForm.controls['postalCode'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['postalCode'].errors?.required">
+              Vous devez rentrer un code postal.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <input type="text" id="city" class="form-control" formControlName="city" required>
+          <label class="form-label" for="city">Ville</label>
+          <div *ngIf="clientForm.controls['city'].invalid && (clientForm.controls['city'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['city'].errors?.required">
+              Vous devez rentrer une ville.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="phone">Téléphone</label>
+          <input type="string" id="phone" class="form-control" formControlName="phone" required>
+          <div *ngIf="clientForm.controls['phone'].invalid && (clientForm.controls['phone'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['phone'].errors?.required">
+              Vous devez rentrer une numéro de téléphone valide.
+            </div>
+            <div *ngIf="clientForm.controls['phone'].errors?.pattern">
+              Le numéro ne peut contenir que des chiffres.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <label class="form-label" for="phone">Format international</label>
+        <div class="form-outline">
+          <input type="text" id="international" disabled value="{{ this.clientForm.controls['phone'].value | phoneInternational }}" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Adresse mail</label>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="email" required>
+      <small id="emailHelp" class="form-text text-muted">Entrez une adresse mail valide.</small>
+      <div *ngIf="clientForm.controls['email'].invalid && (clientForm.controls['email'].dirty || this.submitted)" class="alert alert-danger">
+        <div *ngIf="clientForm.controls['email'].errors?.required">
+          Vous devez rentrer un email.
+        </div>
+        <div *ngIf="clientForm.controls['email'].errors?.email">
+          Vous devez rentrer un email valide du type 'monaddresse@email.com'.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="male" name="sex" value="male" class="custom-control-input" formControlName="sex" required>
+        <label class="custom-control-label" for="male">Homme</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="female" name="sex" value="female" class="custom-control-input" formControlName="sex" required>
+        <label class="custom-control-label" for="female">Femme</label>
+      </div>
+      <div *ngIf="clientForm.controls['sex'].invalid && (clientForm.controls['sex'].dirty || this.submitted)" class="alert alert-danger">
+        <div *ngIf="clientForm.controls['sex'].errors?.required">
+          Vous devez rentrer votre genre.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <input type="password" id="password" class="form-control" formControlName="password" required>
+          <label class="form-label" for="password">Mot de passe</label>
+          <div *ngIf="clientForm.controls['password'].invalid && (clientForm.controls['password'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['password'].errors?.required">
+              Vous devez remplir votre mot de passe.
+            </div>
+            <div *ngIf="clientForm.controls['password'].errors?.minlength">
+              Le mot de passe doit faire 10 caractères.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <input type="password" id="confirmation" class="form-control" formControlName="confirmation" required>
+          <label class="form-label" for="confirmation">Confirmation</label>
+          <div *ngIf="clientForm.controls['confirmation'].invalid && (clientForm.controls['confirmation'].dirty || this.submitted)" class="alert alert-danger">
+            <div *ngIf="clientForm.controls['confirmation'].errors?.required">
+              Vous devez rentrer la confirmation de votre mot de passe.
+            </div>
+            <div *ngIf="clientForm.controls['confirmation'].errors?.nomatch">
+              Les deux mots de passe ne sont pas identiques.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="address">Login</label>
+      <input type="text" id="login" class="form-control" formControlName="login" required>
+      <div *ngIf="clientForm.controls['login'].invalid && (clientForm.controls['login'].dirty || this.submitted)" class="alert alert-danger">
+        <div *ngIf="clientForm.controls['login'].errors?.required">
+          Vous devez rentrer un login.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block mb-4 submit-button">>Valider</button>
+    </div>
+  </form>
+
+  <div class="row mb-4 flex" [hidden]="!hideForm">
+    <p>Identité : {{ this.clientForm.controls['firstName'].value + " " + this.clientForm.controls['lastName'].value }}</p>
+    <p>Alias: {{ this.clientForm.controls['login'].value + " " + this.clientForm.controls['email'].value }}</p>
+    <p>Adresse: {{ this.clientForm.controls['city'].value + " " + this.clientForm.controls['address'].value + " " + this.clientForm.controls['postalCode'].value }}</p>
+    <p>Téléphone: {{ this.clientForm.controls['phone'].value | phoneInternational }}</p>
+    <p>API returned {{ this.apiReturned | async }}</p>
+  </div>
+
+</div>
+

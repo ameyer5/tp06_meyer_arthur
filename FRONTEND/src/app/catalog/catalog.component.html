@@ -1,0 +1,23 @@
+<div style="text-align: center;">
+  <h2>TP 5 Catalog</h2>
+  <hr>
+  <input #search type="text" (change)="searchChange(search, $event)" placeholder="Search by name">
+  <input #price type="number" (change)="numberChange(price, $event)" placeholder="Search price lower than">
+  <hr>
+</div>
+
+<div *ngFor="let article of catalog$ | async">
+  <div style="text-align: center;">
+    <div>
+      {{ article.reference }}
+    </div>
+    <div>
+      {{ article.name }}
+    </div>
+    <div>
+      {{ article.price }}
+    </div>
+    <button (click)="addProductToCart(article)">Add to cart</button>
+    <hr>
+  </div>
+</div>
